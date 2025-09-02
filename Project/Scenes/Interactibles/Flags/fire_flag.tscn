@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://s5ovtrq3v28x"]
+
+[ext_resource type="PackedScene" uid="uid://42ov2n57353t" path="res://Scenes/Interactibles/Flags/player_flag.tscn" id="1_wmvgh"]
+[ext_resource type="Script" uid="uid://d0p7srhe53f6b" path="res://fire_flag.gd" id="2_6hmnh"]
+
+[node name="FireFlag" instance=ExtResource("1_wmvgh")]
+script = ExtResource("2_6hmnh")
+
+[node name="Sprite2D" parent="." index="1"]
+self_modulate = Color(100, 3.867, 1, 1)

@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://cskknx2o1dyqq"]
+
+[ext_resource type="PackedScene" uid="uid://f78h7q434cqv" path="res://Scenes/Interactibles/interactible.tscn" id="1_6bbo8"]
+[ext_resource type="Script" uid="uid://dmdp1eb00wcdu" path="res://door.gd" id="2_komyu"]
+[ext_resource type="Texture2D" uid="uid://1rtvtui8c31y" path="res://Sprites/flag animation.png" id="3_q3bot"]
+
+[sub_resource type="Animation" id="Animation_dykrv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_j4dei"]
+resource_name = "flowing"
+length = 0.75
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n0qjc"]
+_data = {
+&"RESET": SubResource("Animation_dykrv"),
+&"flowing": SubResource("Animation_j4dei")
+}
+
+[node name="Door" instance=ExtResource("1_6bbo8")]
+script = ExtResource("2_komyu")
+door_preload = ""
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 28)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." index="3"]
+position = Vector2(0, 28)
+texture = ExtResource("3_q3bot")
+flip_h = true
+hframes = 5
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+&"": SubResource("AnimationLibrary_n0qjc")
+}
+autoplay = "flowing"

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://kl6pbktuu3jk"]
+
+[ext_resource type="PackedScene" uid="uid://djmptpf0wlp4n" path="res://Scenes/PlayerCharacters/player.tscn" id="1_ksfwq"]
+[ext_resource type="Script" uid="uid://qmhh1vn15p34" path="res://Scripts/player_fire.gd" id="2_5laie"]
+
+[node name="Player_Fire" instance=ExtResource("1_ksfwq")]
+script = ExtResource("2_5laie")
+element_name = "Fire"
+
+[node name="Sprite2D" parent="." index="2"]
+self_modulate = Color(100, 2.763, 1, 1)

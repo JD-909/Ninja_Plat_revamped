@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://8o74dytusfys"]
+
+[ext_resource type="PackedScene" uid="uid://f78h7q434cqv" path="res://Scenes/Interactibles/interactible.tscn" id="1_te62i"]
+[ext_resource type="Script" uid="uid://c7ewbmsw4wkx4" path="res://Scripts/air_flag.gd" id="2_a8486"]
+
+[node name="AirFlag" instance=ExtResource("1_te62i")]
+script = ExtResource("2_a8486")
+
+[node name="Sprite2D" parent="." index="1"]
+self_modulate = Color(5, 5, 5, 1)

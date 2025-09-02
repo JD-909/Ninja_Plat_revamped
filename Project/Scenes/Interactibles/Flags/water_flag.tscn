@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://4mh77wc2byf0"]
+
+[ext_resource type="PackedScene" uid="uid://f78h7q434cqv" path="res://Scenes/Interactibles/interactible.tscn" id="1_n3pc7"]
+[ext_resource type="Script" uid="uid://crn4unr1r8y8w" path="res://Scripts/water_flag.gd" id="2_axx1w"]
+
+[node name="WaterFlag" instance=ExtResource("1_n3pc7")]
+script = ExtResource("2_axx1w")
+
+[node name="Sprite2D" parent="." index="1"]
+self_modulate = Color(1, 1, 4, 1)

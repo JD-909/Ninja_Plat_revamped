@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://blolibwat0q2w"]
+
+[ext_resource type="Script" uid="uid://budcxexi8kyms" path="res://Scripts/enemy.gd" id="1_e6wip"]
+[ext_resource type="Texture2D" uid="uid://bos3t5a1ec46n" path="res://Sprites/icon.svg" id="2_f5nkl"]
+[ext_resource type="Shape2D" uid="uid://d2jeuufbvayse" path="res://Shapes/personShape.tres" id="3_vhotf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1it7"]
+size = Vector2(32, 41)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_e6wip")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="Sprites"]
+modulate = Color(1, 0, 0.270588, 1)
+scale = Vector2(0.226562, 0.296875)
+texture = ExtResource("2_f5nkl")
+
+[node name="Icon2" type="Sprite2D" parent="Sprites"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-5, -2)
+rotation = 0.349066
+scale = Vector2(0.06, 0.018)
+texture = ExtResource("2_f5nkl")
+
+[node name="Icon3" type="Sprite2D" parent="Sprites"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(5, -2)
+rotation = -0.349066
+scale = Vector2(0.06, 0.018)
+texture = ExtResource("2_f5nkl")
+
+[node name="HurtBox2" type="CollisionShape2D" parent="."]
+visible = false
+shape = ExtResource("3_vhotf")
+
+[node name="LeftJumpCast" type="RayCast2D" parent="."]
+position = Vector2(-15, -21)
+target_position = Vector2(-33, -27)
+collision_mask = 2
+
+[node name="RightJumpCast" type="RayCast2D" parent="."]
+position = Vector2(15, -21)
+target_position = Vector2(33, -27)
+collision_mask = 2
+
+[node name="LeftCast" type="RayCast2D" parent="."]
+position = Vector2(-16, 16)
+target_position = Vector2(0, 16)
+
+[node name="RightCast" type="RayCast2D" parent="."]
+position = Vector2(16, 16)
+target_position = Vector2(0, 16)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_k1it7")
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

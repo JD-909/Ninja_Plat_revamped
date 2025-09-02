@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dloymfn00pnkt"]
+
+[ext_resource type="Script" uid="uid://gq3alf8owyr5" path="res://Scripts/checkpoint.gd" id="1_fjd3n"]
+[ext_resource type="PackedScene" uid="uid://f78h7q434cqv" path="res://Scenes/Interactibles/interactible.tscn" id="1_hfwsq"]
+
+[node name="Checkpoint" instance=ExtResource("1_hfwsq")]
+script = ExtResource("1_fjd3n")
