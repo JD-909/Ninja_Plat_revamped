@@ -65,11 +65,11 @@ grow_vertical = 2
 
 [node name="Play" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Play"
+text = "Plame"
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Quit"
+text = "Quti"
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

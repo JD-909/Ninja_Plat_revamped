@@ -1,9 +1,40 @@
-[gd_scene load_steps=13 format=3 uid="uid://djmptpf0wlp4n"]
+[gd_scene load_steps=27 format=3 uid="uid://djmptpf0wlp4n"]
 
 [ext_resource type="Script" uid="uid://bdr6wa8eoe6a4" path="res://Scripts/player.gd" id="1_5dqb5"]
 [ext_resource type="Shape2D" uid="uid://d2jeuufbvayse" path="res://Shapes/personShape.tres" id="3_0plqd"]
+[ext_resource type="Texture2D" uid="uid://bdtjr6x0dluc4" path="res://Sprites/NinjaSprites/slash-Sheet.png" id="3_3slyb"]
 [ext_resource type="Texture2D" uid="uid://d6p7e5ljvn6q" path="res://Sprites/NinjaSprites/idle-Sheet.png" id="3_m2amb"]
 [ext_resource type="Texture2D" uid="uid://dxjxhqud2840a" path="res://Sprites/NinjaSprites/run-Sheet.png" id="4_1a8lf"]
+[ext_resource type="Texture2D" uid="uid://o6v3js3bx3ka" path="res://Sprites/NinjaSprites/quick jump&fall anim-Sheet.png" id="4_20n3w"]
+[ext_resource type="Texture2D" uid="uid://seqqupa7ew5q" path="res://Sprites/NinjaSprites/long jump&fall anim-Sheet.png" id="6_mtsvm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1aiid"]
+atlas = ExtResource("3_3slyb")
+region = Rect2(0, 0, 42, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdm6t"]
+atlas = ExtResource("3_3slyb")
+region = Rect2(42, 0, 42, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5nhvk"]
+atlas = ExtResource("3_3slyb")
+region = Rect2(84, 0, 42, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7ni6"]
+atlas = ExtResource("3_3slyb")
+region = Rect2(126, 0, 42, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwr5b"]
+atlas = ExtResource("4_20n3w")
+region = Rect2(32, 0, 32, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7q0d"]
+atlas = ExtResource("4_20n3w")
+region = Rect2(64, 0, 32, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1ydy"]
+atlas = ExtResource("4_20n3w")
+region = Rect2(96, 0, 32, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m2amb"]
 atlas = ExtResource("3_m2amb")
@@ -21,6 +52,22 @@ region = Rect2(64, 0, 32, 26)
 atlas = ExtResource("3_m2amb")
 region = Rect2(96, 0, 32, 26)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxr18"]
+atlas = ExtResource("6_mtsvm")
+region = Rect2(68, 0, 34, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3rig"]
+atlas = ExtResource("6_mtsvm")
+region = Rect2(102, 0, 34, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7mv0"]
+atlas = ExtResource("6_mtsvm")
+region = Rect2(136, 0, 34, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssr8y"]
+atlas = ExtResource("6_mtsvm")
+region = Rect2(170, 0, 34, 30)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_3slyb"]
 atlas = ExtResource("4_1a8lf")
 region = Rect2(0, 0, 36, 26)
@@ -35,10 +82,39 @@ region = Rect2(72, 0, 36, 26)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3slyb"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1aiid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdm6t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5nhvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7ni6")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwr5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7q0d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1ydy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7q0d")
+}],
 "loop": true,
 "name": &"fall",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -57,10 +133,22 @@ animations = [{
 "name": &"idle",
 "speed": 10.0
 }, {
-"frames": [],
-"loop": true,
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxr18")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3rig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7mv0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssr8y")
+}],
+"loop": false,
 "name": &"jump",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -91,6 +179,9 @@ shape = ExtResource("3_0plqd")
 position = Vector2(-4, -7)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_3slyb")
-animation = &"idle"
+animation = &"jump"
 autoplay = "idle"
-frame_progress = 0.459618
+frame = 3
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="Sprite2D" to="." method="_on_sprite_2d_animation_finished"]
