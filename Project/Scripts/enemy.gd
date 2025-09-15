@@ -7,6 +7,7 @@ var rc_right_floor : RayCast2D			#detecta el piso a la derecha.
 var rc_left_player : RayCast2D
 var rc_right_player : RayCast2D
 var gravity : float = 980
+var lives : int = 2
 
 #La funcion _ready se corre cuando se carga la escena.
 func _ready() -> void:
@@ -34,10 +35,14 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
+func hurt() -> void:
+	lives -= 1
+	if lives <=0:
+		die()
 
 func die() -> void:
 	queue_free()
 
 #Si entra el jugador a el area, le hace daño
 func _on_hit_box_body_entered(body: Node2D) -> void:
-	body.die()
+	body.hurt()

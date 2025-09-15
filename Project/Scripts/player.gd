@@ -7,6 +7,8 @@ var MAX_LIVES : int = 4
 var gravity : float = 980
 var extra_jumps : int
 var direction: int
+var max_lives : int = 3
+var lives : int
 
 var main_sm : LimboHSM
 
@@ -18,6 +20,7 @@ var main_sm : LimboHSM
 #La funcion _ready se corre cuando se carga la escena.
 func _ready() -> void:
 	checkpoint_position = position
+	lives = max_lives
 	initiate_state_machine()
 
 #La funcion _physics_process se corre todos los frames. De hecho, delta es el tiempo transcurrido entre frames.
@@ -62,11 +65,13 @@ func initiate_state_machine():
 	var walk_state = LimboState.new().named("walk").call_on_enter(walk_start).call_on_update(walk_update)
 	var jump_state = LimboState.new().named("jump").call_on_enter(jump_start).call_on_update(jump_update)
 	var attack_state = LimboState.new().named("attack").call_on_enter(attack_start).call_on_update(attack_update)
+	var fall_state = LimboState.new().named("fall").call_on_enter(fall_start).call_on_update(fall_update)
 	
 	main_sm.add_child(idle_state)
 	main_sm.add_child(walk_state)
 	main_sm.add_child(jump_state)
 	main_sm.add_child(attack_state)
+	main_sm.add_child(fall_state)
 	
 	main_sm.initial_state = idle_state
 	
@@ -75,6 +80,7 @@ func initiate_state_machine():
 	main_sm.add_transition(main_sm.ANYSTATE, jump_state, &"to_jump")
 	main_sm.add_transition(jump_state, jump_state, &"to_jump")
 	main_sm.add_transition(main_sm.ANYSTATE, attack_state, &"to_attack")
+	main_sm.add_transition(main_sm.ANYSTATE, fall_state, &"to_fall")
 	
 	main_sm.initialize(self)
 	main_sm.set_active(true)
@@ -82,13 +88,17 @@ func initiate_state_machine():
 func idle_start():
 	$Sprite2D.play("idle")
 func idle_update(delta: float):
-	if velocity.x != 0:
+	if velocity.y != 0:
+		main_sm.dispatch(&"to_fall")
+	elif velocity.x != 0:
 		main_sm.dispatch(&"to_walk")
 
 func walk_start():
 	$Sprite2D.play("walk")
 func walk_update(delta: float):
-	if velocity.x == 0:
+	if velocity.y != 0:
+		main_sm.dispatch(&"to_fall")
+	elif velocity.x == 0:
 		main_sm.dispatch(&"state_ended")
 
 func jump_start():
@@ -96,7 +106,9 @@ func jump_start():
 	extra_jumps -= 1
 	velocity.y = JUMP_FORCE
 func jump_update(delta: float):
-	if is_on_floor():
+	if velocity.y >= 400:
+		main_sm.dispatch(&"to_fall")
+	elif is_on_floor():
 		main_sm.dispatch(&"state_ended")
 
 func attack_start():
@@ -104,17 +116,33 @@ func attack_start():
 func attack_update(delta: float):
 	pass
 
+
+func fall_start():
+	$Sprite2D.play("fall")
+func fall_update(delta: float):
+	if is_on_floor():
+		main_sm.dispatch(&"state_ended")
+
+#Para que el sprite se de vuelta cuando el jugador cambia de direccion
 func flip_sprite(dir : int):
 	if dir == -1:
 		$Sprite2D.flip_h = true
 		$Sprite2D.position.x = 4
+		$HitArea/HitBox.position.x = -27
 	elif dir == 1:
 		$Sprite2D.flip_h = false
 		$Sprite2D.position.x = -4
+		$HitArea/HitBox.position.x = 27
+
+func hurt() -> void:
+	lives -= 1
+	if lives <=0:
+		die()
 
 #Esta funcion no la llama nunca el jugador, son los enemigos los que le dicen al jugador que se haga daño. 
 func die() -> void:
 	global_position = checkpoint_position
+	lives = max_lives
 	velocity = Vector2(0,0)
 
 

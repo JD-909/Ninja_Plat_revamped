@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://djmptpf0wlp4n"]
+[gd_scene load_steps=28 format=3 uid="uid://djmptpf0wlp4n"]
 
 [ext_resource type="Script" uid="uid://bdr6wa8eoe6a4" path="res://Scripts/player.gd" id="1_5dqb5"]
 [ext_resource type="Shape2D" uid="uid://d2jeuufbvayse" path="res://Shapes/personShape.tres" id="3_0plqd"]
@@ -165,6 +165,9 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3slyb"]
+size = Vector2(46, 14)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_5dqb5")
@@ -179,9 +182,13 @@ shape = ExtResource("3_0plqd")
 position = Vector2(-4, -7)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_3slyb")
-animation = &"jump"
+animation = &"attack"
 autoplay = "idle"
-frame = 3
-frame_progress = 1.0
+
+[node name="HitArea" type="Area2D" parent="."]
+
+[node name="HitBox" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(27, -2)
+shape = SubResource("RectangleShape2D_3slyb")
 
 [connection signal="animation_finished" from="Sprite2D" to="." method="_on_sprite_2d_animation_finished"]
